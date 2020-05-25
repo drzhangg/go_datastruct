@@ -29,6 +29,31 @@ func InsertNode(head *Node, newNode *Node) {
 	temp.next = newNode
 }
 
+//按照id顺序进行插入
+func InsertNodeDesc(head *Node, newHead *Node) {
+	temp := head
+	flag := true
+
+	for {
+		if temp.next == nil { //说明最后一个节点
+			break
+		} else if temp.next.id > newHead.id { //说明newNode应该在head前面
+			break
+		} else if temp.next.id == newHead.id { //该节点已经插过
+			flag = false
+			break
+		}
+	}
+
+	if !flag {
+		fmt.Printf("对不起，该id已经存在:%d", newHead.id)
+		return
+	} else {
+		newHead.next = temp.next
+		temp.next = newHead
+	}
+}
+
 //获取链表列表
 func ListNode(head *Node) {
 	/*
@@ -63,7 +88,6 @@ func main() {
 
 	InsertNode(node, node2)
 	InsertNode(node, node1)
-
 
 	ListNode(node)
 }
