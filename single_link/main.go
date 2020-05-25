@@ -75,6 +75,29 @@ func ListNode(head *Node) {
 	}
 }
 
+//根据id删除节点
+func DelNode(head *Node, id int) {
+	temp := head
+	flag := false
+
+	for {
+		if temp.next == nil {
+			break
+		} else if temp.next.id == id {
+			flag = true
+			break
+		}
+		temp = temp.next
+	}
+
+	if flag {
+		//eg：删除节点2，将节点1的next指向节点3
+		temp.next = temp.next.next
+	} else {
+		fmt.Println("该id不存在")
+	}
+}
+
 func main() {
 	node := &Node{}
 	node1 := &Node{
@@ -85,9 +108,19 @@ func main() {
 		id:   2,
 		name: "tom",
 	}
+	node3 := &Node{
+		id:   3,
+		name: "bob",
+	}
 
 	InsertNode(node, node2)
 	InsertNode(node, node1)
+	InsertNode(node, node3)
 
 	ListNode(node)
+
+	DelNode(node, 2)
+	ListNode(node)
 }
+
+//TODO:从队列头部取，从尾部取
